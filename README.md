@@ -10,6 +10,9 @@ Linux Foundation의 Zephyr RTOS를 사용합니다.
 
 참고 1) 시스템 소프트웨어 개발을 위한 Arm아키텍쳐의 구조와 원리
  https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=318773448&start=slayer
+ 
+ 저자 직강 (유료, Udemy)
  https://www.udemy.com/course/austin-armv8_v7_arch1/?referralCode=4D1703A5611F14D1FD50
+ 
  저자 블로그 : https://austindhkim.tistory.com/
  
