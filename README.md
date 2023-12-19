@@ -4,13 +4,11 @@
 
 ## ARM 아키텍쳐
 
-참고 1) 시스템 소프트웨어 개발을 위한 Arm아키텍쳐의 구조와 원리
- https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=318773448&start=slayer
- 
- 저자 직강 (유료, Udemy)
- https://www.udemy.com/course/austin-armv8_v7_arch1/?referralCode=4D1703A5611F14D1FD50
- 
- 저자 블로그 : https://austindhkim.tistory.com/
+참고:
+
+- [시스템 소프트웨어 개발을 위한 Arm아키텍쳐의 구조와 원리](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=318773448&start=slayer)
+- [저자 직강 (유료, Udemy)](https://www.udemy.com/course/austin-armv8_v7_arch1/?referralCode=4D1703A5611F14D1FD50) 
+- [저자 블로그](https://austindhkim.tistory.com/)
 
 ## Zephyr RTOS + Nordic
 
@@ -24,6 +22,7 @@
     - Nordic, Adafruit, Google, 퀄컴 등 수많은 기업들에서 표준 환경으로 채택
         - [구글 크롬북에 Zephyr RTOS를 사용](https://zephyrproject.org/chromeoss-embedded-controller/)
         - Nordic 신규 SDK에서는 Zephyr API를 표준으로 설정
+        - 많은 하드웨어 SDK들에서 동일한 Zephyr API 사용 가능
 
 - Nordic
     - Nordic사의 nRF5340 혹은 nRF52840을 사용합니다.
@@ -31,4 +30,5 @@
 
 ### 자료
 
-1. [nrf SDK에서 Zephyr RTOS 사용법](./docs/nrf_sdk_zephyr_basic.md)
+- [nrf SDK에서 Zephyr RTOS 사용법](./docs/nrf_sdk_zephyr_basic.md)
+- [Zephyr 샘플 코드 목록 정리](./docs/zephyr_samples.md)
