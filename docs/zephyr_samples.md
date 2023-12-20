@@ -21,3 +21,7 @@
 ## 블루투스
 
 [블루투스 관련 샘플 목록](https://github.com/zephyrproject-rtos/zephyr/tree/main/samples/bluetooth)
+
+## 디스플레이
+
+[기본적인 디스플레이 샘플](https://github.com/zephyrproject-rtos/zephyr/tree/main/samples/drivers/display)
