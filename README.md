@@ -32,3 +32,4 @@
 
 - [nrf SDK에서 Zephyr RTOS 사용법](./docs/nrf_sdk_zephyr_basic.md)
 - [Zephyr 샘플 코드 목록 정리](./docs/zephyr_samples.md)
+- [Zephyr RTOS 커널 초기화 관련](./docs/kernel_init.md)
