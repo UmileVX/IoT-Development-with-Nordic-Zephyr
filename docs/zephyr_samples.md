@@ -25,3 +25,7 @@
 ## 디스플레이
 
 [기본적인 디스플레이 샘플](https://github.com/zephyrproject-rtos/zephyr/tree/main/samples/drivers/display)
+
+## 저수준
+
+[nRF System Off (deep sleep) demo](https://github.com/zephyrproject-rtos/zephyr/tree/main/samples/boards/nrf/system_off)
