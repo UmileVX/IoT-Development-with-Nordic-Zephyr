@@ -35,6 +35,8 @@ SYS_INIT(disable_ds_1, PRE_KERNEL_1, 99);
 
 int main(void)
 {
+	printk("main() starts\n");
+
 	int rc;
 	const struct device *const cons = DEVICE_DT_GET(DT_CHOSEN(zephyr_console));
 
