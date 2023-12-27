@@ -1,6 +1,7 @@
 # Zephyr RTOS 샘플
 
-[Zephyr RTOS 샘플코드 모음](https://github.com/zephyrproject-rtos/zephyr/tree/main/samples)
+- [Zephyr RTOS 샘플코드 모음](https://github.com/zephyrproject-rtos/zephyr/tree/main/samples)
+- [Zephyr RTOS nRF Connect 샘플 모음](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/2.3.0/zephyr/samples/index.html)
 
 ## 기본
 
