@@ -1,0 +1,151 @@
+// To get started, press Ctrl+Space to bring up the completion menu and view the available nodes.
+
+// You can also use the buttons in the sidebar to perform actions on nodes.
+// Actions currently available include:
+
+// * Enabling / disabling the node
+// * Adding the bus to a bus
+// * Removing the node
+// * Connecting ADC channels
+
+// For more help, browse the DeviceTree documentation at https://docs.zephyrproject.org/latest/guides/dts/index.html
+// You can also visit the nRF DeviceTree extension documentation at https://nrfconnect.github.io/vscode-nrf-connect/devicetree/nrfdevicetree.html
+#include <zephyr/dt-bindings/display/ili9xxx.h>
+
+/ {
+    chosen {
+        zephyr,display = &ili9488_smartdream_display;
+    };
+
+    aliases {
+        backlight = &backlight;
+    };
+
+    lcd_module {
+        compatible = "gpio-leds";
+    
+        backlight: back_light {
+            gpios = <&gpio1 3 GPIO_ACTIVE_HIGH>;
+        };
+
+        testclk: testclk {
+            gpios = <&gpio0 17 GPIO_ACTIVE_HIGH>;
+        };
+    };
+};
+
+&arduino_spi {
+    status = "okay";
+    cs-gpios = <&gpio1 7 GPIO_ACTIVE_LOW>; /* D9 */
+
+    ili9488_smartdream_display: ili9488@0 {
+            compatible = "ilitek,ili9488";
+            spi-max-frequency = <25000000>;
+            reg = <0>;
+            cmd-data-gpios = <&gpio1 5 GPIO_ACTIVE_LOW>; /* D7 */
+            reset-gpios = <&gpio1 6 GPIO_ACTIVE_LOW>; /* D10 */
+            pixel-format = <ILI9XXX_PIXEL_FORMAT_RGB888>;
+            width = <320>;
+            height = <480>;
+            rotation = <180>;
+            frmctr1 = [a0 11];
+            pwctrl1 = [17 15];
+            pwctrl2 = [41];
+            pgamctrl = [00 03 09 08 16 0a 3f 78 4c 09 0a 08 16 1a 0f];
+            ngamctrl = [00 16 19 03 0f 05 32 45 46 04 0e 0d 35 37 0f];
+    };
+};
+
+&pinctrl {
+    // spi3_default: spi3_default {
+    //     group1 {
+    //         psels = <NRF_PSEL(SPIM_SCK, 0, 17)>,
+    //             <NRF_PSEL(SPIM_MISO, 0, 13)>,
+    //             <NRF_PSEL(SPIM_MOSI, 0, 15)>;
+    //     };
+    // };
+
+    // spi3_sleep: spi3_sleep {
+    //     group1 {
+    //         psels = <NRF_PSEL(SPIM_SCK, 0, 17)>,
+    //             <NRF_PSEL(SPIM_MISO, 0, 13)>,
+    //             <NRF_PSEL(SPIM_MOSI, 0, 15)>;
+    //         low-power-enable;
+    //     };
+    // };
+
+    // i2c0_default: i2c0_default {
+	// 	group1 {
+	// 		psels = <NRF_PSEL(TWIM_SDA, 0, 6)>,
+	// 			<NRF_PSEL(TWIM_SCL, 0, 8)>;
+	// 	};
+	// };
+
+	// i2c0_sleep: i2c0_sleep {
+	// 	group1 {
+	// 		psels = <NRF_PSEL(TWIM_SDA, 0, 6)>,
+	// 			<NRF_PSEL(TWIM_SCL, 0, 8)>;
+	// 		low-power-enable;
+	// 	};
+	// };
+};
+
+&spi1 {
+    status = "disabled";
+};
+
+&uart0 {
+    status = "disabled";
+};
+
+&uart1 {
+    status = "disabled";
+};
+
+&pwm0 {
+    status = "disabled";
+};
+
+&qspi {
+    status = "disabled";    
+};
+
+&led0 {
+    status = "disabled";     
+};
+
+&led1 {
+    status = "disabled";     
+};
+
+&led2 {
+    status = "disabled";     
+};
+
+&led3 {
+    status = "disabled";     
+};
+
+&button0 {
+    status = "disabled";     
+};
+
+&button1 {
+    status = "disabled";     
+};
+
+&button2 {
+    status = "disabled";     
+};
+
+&button3 {
+    status = "disabled";     
+};
+
+&i2c0 {
+    status = "disabled";
+};
+
+&pwm_led0 {
+    status = "disabled";
+};
