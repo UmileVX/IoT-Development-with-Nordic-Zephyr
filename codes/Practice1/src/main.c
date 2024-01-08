@@ -23,7 +23,6 @@ static uint32_t count;
 #define LCDBL_NODE	
 
 static struct gpio_dt_spec sd_lcd_bl = GPIO_DT_SPEC_GET(DT_ALIAS(backlight), gpios);
-static struct gpio_dt_spec spi_clk = GPIO_DT_SPEC_GET(DT_ALIAS(test_spi), gpios);
 
 #ifdef CONFIG_GPIO
 static struct gpio_dt_spec button_gpio = GPIO_DT_SPEC_GET_OR(
@@ -140,15 +139,6 @@ void main(void)
 		}
 		// gpio_pin_set_dt(&sd_lcd_bl, 1);
 		gpio_pin_set_dt(&sd_lcd_bl, 0);
-	}
-
-	if (device_is_ready(spi_clk.port)) {
-		err = gpio_pin_configure_dt(&spi_clk, GPIO_OUTPUT);
-		if (err) {
-			LOG_ERR("failed to configure spi clk gpio: %d", err);
-			return;
-		}
-		gpio_pin_set_dt(&spi_clk, 1);
 	}
 
 #ifdef CONFIG_GPIO
