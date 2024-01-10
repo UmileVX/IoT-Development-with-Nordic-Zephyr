@@ -23,3 +23,8 @@
 
 - [Bluetooth: Peripheral 예제](https://github.com/zephyrproject-rtos/zephyr/tree/v3.2.0/samples/bluetooth/peripheral) 기반
 - nRF Connect 앱을 통해 연결, 데이터 통신 값을 볼 수 있음
+
+## CO2_bot_peripheral
+
+- CO2_bot 예제에 peripheral 예제를 결합한 형식
+- UART -> IRQ -> BLE peripheral
