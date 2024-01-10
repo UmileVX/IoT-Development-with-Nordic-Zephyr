@@ -18,3 +18,8 @@
 - 테크노니아에서 작성한 lvgl 기반의 단순 예제
 - GPIO 포트들을 사용해서 SPI 통신을 설정
 - SPI 기반 통신을 통해 LCD 제어하는 방법을 학습
+
+## peripheral
+
+- [Bluetooth: Peripheral 예제](https://github.com/zephyrproject-rtos/zephyr/tree/v3.2.0/samples/bluetooth/peripheral) 기반
+- nRF Connect 앱을 통해 연결, 데이터 통신 값을 볼 수 있음
