@@ -2,6 +2,11 @@
 
 기본적으로 nrf52840 DK 보드를 기준으로 실습 코드가 작성되어 있습니다.
 
+## chapter 2 (Button + LED)
+
+- [basic button](https://github.com/zephyrproject-rtos/zephyr/tree/main/samples/basic/button) 예제 기반으로 작성됨
+- 버튼을 눌러서 LED 상태를 변경하는 GPIO 기반 제어 예제입니다.
+
 ## SystemOff
 
 - [nRF System Off Demo](https://github.com/zephyrproject-rtos/zephyr/tree/main/samples/boards/nrf/system_off) 기반으로 작성됨
