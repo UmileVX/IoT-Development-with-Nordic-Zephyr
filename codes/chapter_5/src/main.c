@@ -25,6 +25,50 @@ static const struct device *const uart_serial = DEVICE_DT_GET(DT_N_ALIAS_myseria
 static char rx_buf[MSG_SIZE];
 static int rx_buf_pos;
 
+enum uart_fsm_code {
+	UART_FSM_IDLE,
+	UART_FSM_HEADER,
+	UART_FSM_DATA,
+	UART_FSM_CHECKSUM,
+	UART_FSM_END,
+};
+
+static uint8_t uart_fsm = UART_FSM_IDLE;
+
+uint8_t check_usart_fsm(uint8_t read_data) {
+	switch (uart_fsm) {
+		case UART_FSM_IDLE:
+			if (read_data == 0xFF) {
+				uart_fsm = UART_FSM_HEADER;
+			}
+			break;
+		case UART_FSM_HEADER:
+			if (read_data == 0x86) {
+				uart_fsm = UART_FSM_DATA;
+			} else {
+				uart_fsm = UART_FSM_IDLE;
+			}
+			break;
+		case UART_FSM_DATA:
+			if (rx_buf_pos == MSG_SIZE - 2) {
+				uart_fsm = UART_FSM_CHECKSUM;
+			}
+			break;
+		case UART_FSM_CHECKSUM:
+			if (rx_buf_pos == MSG_SIZE - 1) {
+				uart_fsm = UART_FSM_END;
+			}
+			break;
+		case UART_FSM_END:
+			uart_fsm = UART_FSM_IDLE;
+			break;
+		default:
+			uart_fsm = UART_FSM_IDLE;
+			break;
+	}
+	return uart_fsm;
+}
+
 
 char getCheckSum(char *packet) {
 	char i, checksum;
@@ -65,6 +109,12 @@ void serial_callback(const struct device *dev, void *user_data) {
 
 	/* read until FIFO empty */
 	while (uart_fifo_read(uart_serial, &c, 1) == 1) {
+		// for recovery
+		if (uart_fsm == UART_FSM_IDLE) {
+			rx_buf_pos = 0;
+		}
+		check_usart_fsm(c);
+
 		if (rx_buf_pos >= MSG_SIZE) {
 			rx_buf_pos = 0;
 		}
