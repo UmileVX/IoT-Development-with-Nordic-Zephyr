@@ -25,11 +25,7 @@
         compatible = "gpio-leds";
     
         backlight: back_light {
-            gpios = <&gpio1 3 GPIO_ACTIVE_HIGH>;
-        };
-
-        testclk: testclk {
-            gpios = <&gpio0 17 GPIO_ACTIVE_HIGH>;
+            gpios = <&gpio1 2 GPIO_ACTIVE_HIGH>;
         };
     };
 };
@@ -38,13 +34,17 @@
     status = "okay";
     cs-gpios = <&gpio1 7 GPIO_ACTIVE_LOW>; /* D9 */
 
+    pinctrl-0 = <&spi3_default>;
+    pinctrl-1 = <&spi3_sleep>;
+
     ili9488_smartdream_display: ili9488@0 {
             compatible = "ilitek,ili9488";
-            spi-max-frequency = <25000000>;
+            spi-max-frequency = <32000000>;
             reg = <0>;
-            cmd-data-gpios = <&gpio1 5 GPIO_ACTIVE_LOW>; /* D7 */
-            reset-gpios = <&gpio1 6 GPIO_ACTIVE_LOW>; /* D10 */
+            cmd-data-gpios = <&gpio1 5 GPIO_ACTIVE_LOW>;
+            reset-gpios = <&gpio1 6 GPIO_ACTIVE_LOW>;
             pixel-format = <ILI9XXX_PIXEL_FORMAT_RGB888>;
+            //pixel-format = <ILI9XXX_PIXEL_FORMAT_RGB565>;
             width = <320>;
             height = <480>;
             rotation = <180>;
@@ -57,22 +57,22 @@
 };
 
 &pinctrl {
-    // spi3_default: spi3_default {
-    //     group1 {
-    //         psels = <NRF_PSEL(SPIM_SCK, 0, 17)>,
-    //             <NRF_PSEL(SPIM_MISO, 0, 13)>,
-    //             <NRF_PSEL(SPIM_MOSI, 0, 15)>;
-    //     };
-    // };
+    spi3_default: spi3_default {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 1, 3)>,
+                <NRF_PSEL(SPIM_MISO, 1, 1)>,
+                <NRF_PSEL(SPIM_MOSI, 1, 4)>;
+        };
+    };
 
-    // spi3_sleep: spi3_sleep {
-    //     group1 {
-    //         psels = <NRF_PSEL(SPIM_SCK, 0, 17)>,
-    //             <NRF_PSEL(SPIM_MISO, 0, 13)>,
-    //             <NRF_PSEL(SPIM_MOSI, 0, 15)>;
-    //         low-power-enable;
-    //     };
-    // };
+    spi3_sleep: spi3_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 1, 3)>,
+                <NRF_PSEL(SPIM_MISO, 1, 1)>,
+                <NRF_PSEL(SPIM_MOSI, 1, 4)>;
+            low-power-enable;
+        };
+    };
 
     // i2c0_default: i2c0_default {
 	// 	group1 {
@@ -107,11 +107,11 @@
 };
 
 &qspi {
-    status = "disabled";    
+    status = "disabled";
 };
 
 &led0 {
-    status = "disabled";     
+    status = "disabled";
 };
 
 &led1 {

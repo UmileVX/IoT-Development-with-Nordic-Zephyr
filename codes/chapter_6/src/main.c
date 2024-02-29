@@ -202,8 +202,8 @@ void main(void)
 		if ((count % 10) == 0U) {
 			sprintf(count_str, "%d", count/10U);
 			lv_label_set_text(count_label, count_str);
-			gpio_pin_set_dt(&sd_lcd_bl, value);
-			value = !value;
+			// gpio_pin_set_dt(&sd_lcd_bl, value);
+			// value = !value;
 		}
 		lv_task_handler();
 		++count;
