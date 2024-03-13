@@ -7,10 +7,8 @@
 #include <stdio.h>
 #include <zephyr/kernel.h>
 #include <zephyr/device.h>
-#include <zephyr/init.h>
-#include <zephyr/pm/pm.h>
 #include <zephyr/pm/device.h>
-#include <zephyr/pm/policy.h>
+#include <zephyr/sys/poweroff.h>
 #include <soc.h>
 #include "retained.h"
 #include <hal/nrf_gpio.h>
@@ -18,25 +16,9 @@
 #define BUSY_WAIT_S 2U
 #define SLEEP_S 2U
 
-/* Prevent deep sleep (system off) from being entered on long timeouts
- * or `K_FOREVER` due to the default residency policy.
- *
- * This has to be done before anything tries to sleep, which means
- * before the threading system starts up.
- */
-static int disable_ds_1(void)
-{
-
-	pm_policy_state_lock_get(PM_STATE_SOFT_OFF, PM_ALL_SUBSTATES);
-	return 0;
-}
-
-SYS_INIT(disable_ds_1, PRE_KERNEL_1, 99);
 
 int main(void)
 {
-	printk("main() starts\n");
-
 	int rc;
 	const struct device *const cons = DEVICE_DT_GET(DT_CHOSEN(zephyr_console));
 
@@ -47,7 +29,7 @@ int main(void)
 
 	printk("\n%s system off demo\n", CONFIG_BOARD);
 
-	// k config에서 RAM Retention 모드가 활성화 되어있는지 확인
+	// check whether the APP_RETENTION config is enabled (only available on nRF52)
 	if (IS_ENABLED(CONFIG_APP_RETENTION)) {
 		bool retained_ok = retained_validate();
 
@@ -55,6 +37,7 @@ int main(void)
 		retained.boots += 1;
 		retained_update();
 
+		// print out the retained data
 		printk("Retained data: %s\n", retained_ok ? "valid" : "INVALID");
 		printk("Boot count: %u\n", retained.boots);
 		printk("Off count: %u\n", retained.off_count);
@@ -68,8 +51,8 @@ int main(void)
 		NRF_DT_GPIOS_TO_PSEL(DT_ALIAS(sw0), gpios),
 		NRF_GPIO_PIN_PULLUP
 	);
-	nrf_gpio_cfg_sense_set(
-		NRF_DT_GPIOS_TO_PSEL(DT_ALIAS(sw0), gpios),
+	nrf_gpio_cfg_sense_set(NRF_DT_GPIOS_TO_PSEL(
+		DT_ALIAS(sw0), gpios),
 		NRF_GPIO_PIN_SENSE_LOW
 	);
 
@@ -91,27 +74,15 @@ int main(void)
 
 	printk("Entering system off; press BUTTON1 to restart\n");
 
+	// check whether the APP_RETENTION config is enabled (only available on nRF52)
 	if (IS_ENABLED(CONFIG_APP_RETENTION)) {
 		/* Update the retained state */
 		retained.off_count += 1;
 		retained_update();
 	}
 
-	/* Above we disabled entry to deep sleep based on duration of
-	 * controlled delay.  Here we need to override that, then
-	 * force entry to deep sleep on any delay.
-	 */
-	pm_state_force(0u, &(struct pm_state_info){PM_STATE_SOFT_OFF, 0, 0});
+	// change the power state of the board
+	sys_poweroff();
 
-	/* Now we need to go sleep. This will let the idle thread runs and
-	 * the pm subsystem will use the forced state. To confirm that the
-	 * forced state is used, lets set the same timeout used previously.
-	 */
-	k_sleep(K_SECONDS(SLEEP_S));
-
-	printk("ERROR: System off failed\n");
-	while (true) {
-		/* spin to avoid fall-off behavior */
-	}
 	return 0;
 }
