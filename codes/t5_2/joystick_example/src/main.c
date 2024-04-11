@@ -101,8 +101,14 @@ int main(void)
 
 		nowY = (int32_t)buf;
 
-                printk("Joy X: %" PRIu32 ", ", nowX);
+        printk("Joy X: %" PRIu32 ", ", nowX);
 		printk("Joy Y: %" PRIu32 ", ", nowY);
+
+		if (nowX >= 65500 || nowY >= 65500){
+			printk("Out of Range\n");
+			k_sleep(K_MSEC(100));
+			continue;
+		}
 
 		bool checkFlag = isChange();
 		if(!checkFlag){
