@@ -2,9 +2,6 @@
 
 int led_init(void)
 {
-    int err;
-    int i;
-
     if(!device_is_ready(led)){
         printk("LED device %s is not ready\n", led->name);
     }

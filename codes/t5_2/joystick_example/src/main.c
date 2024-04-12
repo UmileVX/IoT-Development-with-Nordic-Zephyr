@@ -33,10 +33,9 @@ static const struct adc_dt_spec adc_channels[] = {
 
 // add for joystick
 int32_t preX = 0 , perY = 0;
-static const int AXIS_DEVIATION = 511;
 static const int ADC_MAX = 1023;
-static const int ADC_MIN = 0;
-int mid = ADC_MAX / 2;
+// static const int ADC_MIN = 0;
+static const int AXIS_DEVIATION = ADC_MAX / 2;
 int32_t nowX = 0;
 int32_t nowY = 0;
 
@@ -51,6 +50,7 @@ bool isChange(void)
 		perY = nowY;
 		return true;
 	}
+	return false;
 }
 //endif
 int main(void)
@@ -122,16 +122,16 @@ int main(void)
 		if (nowX == ADC_MAX && nowY == ADC_MAX){
 			led_on_center();
 			printk("Center");
-		} else if (nowX < mid && nowY == ADC_MAX){
+		} else if (nowX < AXIS_DEVIATION && nowY == ADC_MAX){
 			led_on_left();
 			printk("Left");
-		} else if (nowX > mid && nowY == ADC_MAX){
+		} else if (nowX > AXIS_DEVIATION && nowY == ADC_MAX){
 			led_on_right();
 			printk("Right");
-		} else if (nowY > mid && nowX == ADC_MAX){
+		} else if (nowY > AXIS_DEVIATION && nowX == ADC_MAX){
 			led_on_up();
 			printk("Up");
-		} else if (nowY < mid && nowX == ADC_MAX){
+		} else if (nowY < AXIS_DEVIATION && nowX == ADC_MAX){
 			led_on_down();
 			printk("Down");
 		}
