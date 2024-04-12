@@ -1,6 +1,6 @@
 #include "led.h"
 
-int led_matrix_array [MAX_ROTARY_IDX+1][LED_NUM+1]= {
+int led_matrix_array [MAX_ROTARY_IDX+1][MAX_LED_NUM+1]= {
  {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -164,7 +164,7 @@ int led_init(void)
 
 void led_off_all(void)
 {
-    for(int i = 0; i< LED_NUM; i++){
+    for(int i = 0; i< MAX_LED_NUM; i++){
         led_off(led, i);
     }
 }
@@ -172,7 +172,7 @@ void led_off_all(void)
 void led_on_idx(int idx)
 {
    //  led_off_all();
-    for(int i = 0; i < LED_NUM; i++){
+    for(int i = 0; i < MAX_LED_NUM; i++){
         if(led_matrix_array[idx][i] == 1){
             led_on(led, i);
         } else {

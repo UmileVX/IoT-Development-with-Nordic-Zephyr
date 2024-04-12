@@ -14,7 +14,7 @@ int led_init(void)
 
 void led_off_all(void)
 {
-    for(int i = 0; i< LED_NUM; i++){
+    for(int i = 0; i< MAX_LED_NUM; i++){
         led_off(led, i);
     }
 }
