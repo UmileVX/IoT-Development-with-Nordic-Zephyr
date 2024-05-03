@@ -112,7 +112,7 @@ int main(void)
 
 		bool checkFlag = isChange();
 		if(!checkFlag){
-                        printk("No Change\n");
+            printk("No Change\n");
 			k_sleep(K_MSEC(100));
 			continue;
 		} else {
