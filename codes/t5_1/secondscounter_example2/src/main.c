@@ -57,6 +57,7 @@ K_TIMER_DEFINE(my_timer, my_timer_handler, NULL);
 
 int main(void)
 {
+        printk("Seconds counter example 2\n");
         int ret = DK_OK;
 
         ret = batterydisplay_intit();
