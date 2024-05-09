@@ -147,7 +147,7 @@ int gpio_init(void)
         return GPIO_FAIL;
     }
 
-    err = gpio_pin_configure_dt(&led0, GPIO_OUTPUT_ACTIVE);\
+    err = gpio_pin_configure_dt(&led0, GPIO_OUTPUT_ACTIVE);
     if (err < 0) {
         printk("Error %d: failed to configure LED0 pin\n", err);
         return GPIO_FAIL;
